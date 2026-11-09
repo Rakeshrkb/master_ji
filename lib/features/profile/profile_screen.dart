@@ -287,7 +287,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               const SizedBox(height: AppTheme.sp16),
             ],
 
-            // ── Log Out Button ──────────────────────────────────────────────
+            // ── Log Out & Delete Account Buttons ─────────────────────────────
             if (account.isLoggedIn) ...[
               OutlinedButton.icon(
                 onPressed: () => _confirmLogout(context, account),
@@ -300,6 +300,23 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       const Size(double.infinity, AppTheme.minTouchTarget),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(AppTheme.radiusButton),
+                  ),
+                ),
+              ),
+              const SizedBox(height: AppTheme.sp12),
+              Center(
+                child: TextButton.icon(
+                  onPressed: () => _confirmDeleteAccount(context, account),
+                  icon: const Icon(
+                    Icons.delete_forever_rounded,
+                    size: 18,
+                    color: AppColors.wrong,
+                  ),
+                  label: Text(
+                    'Delete Account',
+                    style: AppTextStyles.bodyMedium(
+                      color: AppColors.wrong,
+                    ),
                   ),
                 ),
               ),
@@ -339,6 +356,67 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
     if (confirmed == true) {
       await account.logout();
+    }
+  }
+
+  Future<void> _confirmDeleteAccount(
+    BuildContext context,
+    AccountState account,
+  ) async {
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: const Text('Delete Account?'),
+        content: const Text(
+          'This action is permanent and cannot be undone.\n\n'
+          'All your account data, subscription licence keys, and records will be permanently deleted from our servers.',
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(ctx, false),
+            child: const Text('Cancel'),
+          ),
+          TextButton(
+            style: TextButton.styleFrom(foregroundColor: AppColors.wrong),
+            onPressed: () => Navigator.pop(ctx, true),
+            child: const Text(
+              'Delete Forever',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+          ),
+        ],
+      ),
+    );
+
+    if (confirmed != true || !context.mounted) return;
+
+    // Show loading indicator dialog while network deletion runs
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (_) => const Center(
+        child: CircularProgressIndicator(color: AppColors.primary),
+      ),
+    );
+
+    final error = await account.deleteAccount();
+
+    if (!context.mounted) return;
+    Navigator.of(context, rootNavigator: true).pop(); // dismiss loading dialog
+
+    if (error != null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(error),
+          backgroundColor: AppColors.wrong,
+        ),
+      );
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Your account has been permanently deleted.'),
+        ),
+      );
     }
   }
 

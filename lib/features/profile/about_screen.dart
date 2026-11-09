@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'package:master_ji/l10n/app_localizations.dart';
 import 'package:master_ji/theme/app_colors.dart';
@@ -105,6 +106,23 @@ class AboutScreen extends StatelessWidget {
                         color: AppColors.textPrimary,
                       ),
                     ),
+                    const SizedBox(height: AppTheme.sp16),
+                    SizedBox(
+                      width: double.infinity,
+                      child: OutlinedButton.icon(
+                        onPressed: () => _openPrivacyPolicy(context),
+                        icon: const Icon(Icons.open_in_new_rounded, size: 16),
+                        label: const Text('View Full Privacy Policy'),
+                        style: OutlinedButton.styleFrom(
+                          foregroundColor: AppColors.primary,
+                          side: const BorderSide(color: AppColors.primary),
+                          shape: RoundedRectangleBorder(
+                            borderRadius:
+                                BorderRadius.circular(AppTheme.radiusButton),
+                          ),
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -115,5 +133,27 @@ class AboutScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Future<void> _openPrivacyPolicy(BuildContext context) async {
+    const url = 'https://masterji.app/privacy';
+    final uri = Uri.parse(url);
+    try {
+      if (await canLaunchUrl(uri)) {
+        await launchUrl(uri, mode: LaunchMode.externalApplication);
+      } else {
+        if (context.mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Could not open web browser.')),
+          );
+        }
+      }
+    } catch (_) {
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Could not open privacy policy URL.')),
+        );
+      }
+    }
   }
 }

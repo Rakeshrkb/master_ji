@@ -326,6 +326,57 @@ class AuthService extends ChangeNotifier {
     notifyListeners();
   }
 
+  /// Permanently deletes the user's account and data on the server (per
+  /// Play Store policy), and wipes all local credentials and profile data.
+  ///
+  /// Returns `null` on success, or a human-readable error message on failure.
+  Future<String?> deleteAccount() async {
+    final token = _accessToken;
+    if (token == null) {
+      await _clearAuthData();
+      notifyListeners();
+      return null;
+    }
+
+    try {
+      final url = Uri.parse('$_baseUrl/auth/delete-account');
+      debugPrint('[Auth] Deleting account at: $url');
+      final response = await http.post(
+        url,
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $token',
+        },
+      ).timeout(const Duration(seconds: 15));
+
+      debugPrint(
+          '[Auth] Delete account response (${response.statusCode}): ${response.body}');
+
+      if (response.statusCode == 200 ||
+          response.statusCode == 204 ||
+          response.statusCode == 404) {
+        // Account deleted or already gone — wipe all credentials and profile locally
+        await _clearAuthData();
+        notifyListeners();
+        return null;
+      }
+
+      final body = _decodeResponse(response);
+      return body['message'] as String? ??
+          body['error'] as String? ??
+          'Failed to delete account (${response.statusCode}).';
+    } on http.ClientException catch (e) {
+      debugPrint('[Auth] ClientException on delete: $e');
+      return 'Network error: ${e.message}';
+    } on TimeoutException {
+      debugPrint('[Auth] Delete account request timed out');
+      return 'Connection timed out. Please check your internet connection.';
+    } catch (e) {
+      debugPrint('[Auth] Delete error: $e');
+      return 'Error deleting account: $e';
+    }
+  }
+
   /// Call after a successful scan.
   ///
   /// For demo users, decrements the local counter. Once the 20-scan demo limit

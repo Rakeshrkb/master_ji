@@ -69,6 +69,20 @@ class AccountState extends ChangeNotifier {
     notifyListeners();
   }
 
+  /// Permanently delete account via [AuthService] and clear all local flags.
+  Future<String?> deleteAccount() async {
+    final error = await _auth.deleteAccount();
+    if (error == null) {
+      await _store.setIsLoggedIn(false);
+      await _store.setIsPremium(false);
+      await _store.setUserName(null);
+      await _store.setUserEmail(null);
+      await _store.setSchoolName(null);
+      notifyListeners();
+    }
+    return error;
+  }
+
   Future<void> setPremium(bool value) async {
     await _store.setIsPremium(value);
     notifyListeners();
