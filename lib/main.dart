@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:provider/provider.dart';
 
 import '../data/account_state.dart';
@@ -10,7 +11,11 @@ import '../services/scan_service.dart';
 import 'app/app.dart';
 
 Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+  final binding = WidgetsFlutterBinding.ensureInitialized();
+
+  // Keep the native splash up until the Flutter splash draws its first frame
+  // (SplashScreen removes it), so there is no white flash in between.
+  FlutterNativeSplash.preserve(widgetsBinding: binding);
 
   // Initialise settings store (SharedPreferences)
   final settingsStore = await SettingsStore.create();

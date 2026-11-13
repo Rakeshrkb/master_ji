@@ -37,6 +37,9 @@ dependencies:
   # Fonts
   google_fonts: ^6.2.1
 
+  # Native (system) splash, shown before Flutter draws its first frame
+  flutter_native_splash: ^2.4.4
+
   # Utilities
   share_plus: ^10.1.2
   url_launcher: ^6.3.1
@@ -60,6 +63,19 @@ flutter_launcher_icons:
   adaptive_icon_background: assets/icon/masterji_icon_background.png
   adaptive_icon_foreground: assets/icon/masterji_icon_foreground.png
 
+# Native splash: teal background + MasterJi logo, so it blends into the
+# Flutter splash screen. After changing this, run:
+#   dart run flutter_native_splash:create
+flutter_native_splash:
+  color: "#12A07A"
+  image: assets/images/splash_logo.png
+  android_12:
+    color: "#12A07A"
+    image: assets/images/splash_logo.png
+  fullscreen: false
+
 flutter:
   generate: true
   uses-material-design: true
+  assets:
+    - assets/images/splash_logo.png
