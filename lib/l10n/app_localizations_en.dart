@@ -499,16 +499,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get enterQuestion => 'Enter question number';
 
   @override
-  String get privacyPlaceholder => 'MasterJi respects your privacy.\n\n'
-      'To create and access a MasterJi account, we require your phone number and password. '
-      'We also use a device ID for account and device management. '
-      'This information is transmitted securely to our server for authentication and account management.\n\n'
-      'OMR sheets are processed locally on your device. '
-      'OMR images and scanning results are not uploaded to our servers.\n\n'
-      'MasterJi does not sell or share your personal information with third parties for advertising purposes.\n\n'
-      'The current version of MasterJi does not process payments. '
-      'Payment functionality may be introduced in a future version.\n\n'
-      'For privacy questions or support, contact us at [your support contact].';
+  String get privacyPlaceholder =>
+      'MasterJi respects your privacy. All your data is stored only on your device. No personal data is collected or shared with third parties.\n\nFor support, contact us on WhatsApp.';
 
   @override
   String classSectionSet(
