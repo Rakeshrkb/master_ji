@@ -53,15 +53,17 @@ dev_dependencies:
   flutter_lints: ^5.0.0
   flutter_launcher_icons: ^0.14.4
 
-# App launcher icon — matches the splash-screen logo (white document-scanner
-# glyph inside a translucent white circle over AppColors.primary teal).
+# App launcher icon — design C from assets/masterji_icons/icon/C ("Mj" mark
+# with an OMR bubble on teal). After changing this, run:
+#   dart run flutter_launcher_icons
 flutter_launcher_icons:
-  image_path: assets/icon/masterji_icon.png
+  image_path: assets/icon/icon_1024.png
   android: true
   ios: true
   remove_alpha_ios: true
-  adaptive_icon_background: assets/icon/masterji_icon_background.png
-  adaptive_icon_foreground: assets/icon/masterji_icon_foreground.png
+  adaptive_icon_background: assets/icon/adaptive_background_432.png
+  adaptive_icon_foreground: assets/icon/adaptive_foreground_432.png
+  min_sdk_android: 21
 
 # Native splash: teal background + MasterJi logo, so it blends into the
 # Flutter splash screen. After changing this, run:
@@ -79,3 +81,4 @@ flutter:
   uses-material-design: true
   assets:
     - assets/images/splash_logo.png
+    - assets/icon/icon_1024.png
