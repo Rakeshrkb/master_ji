@@ -31,17 +31,13 @@ class AboutScreen extends StatelessWidget {
 
               // ── App Icon ──────────────────────────────────────────────────
               Center(
-                child: Container(
-                  width: 96,
-                  height: 96,
-                  decoration: const BoxDecoration(
-                    color: AppColors.primarySoft,
-                    shape: BoxShape.circle,
-                  ),
-                  child: const Icon(
-                    Icons.document_scanner_rounded,
-                    size: 48,
-                    color: AppColors.primary,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(22),
+                  child: Image.asset(
+                    'assets/icon/icon_1024.png',
+                    width: 96,
+                    height: 96,
+                    semanticLabel: 'MasterJi logo',
                   ),
                 ),
               ),

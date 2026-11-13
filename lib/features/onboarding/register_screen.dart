@@ -88,17 +88,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
                 // ── Logo ─────────────────────────────────────────────────────
                 Center(
-                  child: Container(
-                    width: 88,
-                    height: 88,
-                    decoration: const BoxDecoration(
-                      color: AppColors.primarySoft,
-                      shape: BoxShape.circle,
-                    ),
-                    child: const Icon(
-                      Icons.document_scanner_rounded,
-                      size: 44,
-                      color: AppColors.primary,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(20),
+                    child: Image.asset(
+                      'assets/icon/icon_1024.png',
+                      width: 88,
+                      height: 88,
+                      semanticLabel: 'MasterJi logo',
                     ),
                   ),
                 )
@@ -122,7 +118,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
                 Text(
                   'Create your account',
-                  style: AppTextStyles.bodyLarge(color: AppColors.textSecondary),
+                  style:
+                      AppTextStyles.bodyLarge(color: AppColors.textSecondary),
                   textAlign: TextAlign.center,
                 ).animate(delay: 250.ms).fadeIn(duration: 400.ms),
 
@@ -134,8 +131,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     padding: const EdgeInsets.all(AppTheme.sp12),
                     decoration: BoxDecoration(
                       color: AppColors.wrong.withValues(alpha: 0.1),
-                      borderRadius:
-                          BorderRadius.circular(AppTheme.radiusSmall),
+                      borderRadius: BorderRadius.circular(AppTheme.radiusSmall),
                       border: Border.all(
                         color: AppColors.wrong.withValues(alpha: 0.4),
                       ),
@@ -148,8 +144,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         Expanded(
                           child: Text(
                             _errorMessage!,
-                            style: AppTextStyles.bodySmall(
-                                color: AppColors.wrong),
+                            style:
+                                AppTextStyles.bodySmall(color: AppColors.wrong),
                           ),
                         ),
                       ],
@@ -178,7 +174,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     }
                     return null;
                   },
-                ).animate(delay: 300.ms).fadeIn(duration: 400.ms).slideY(begin: 0.1, end: 0),
+                )
+                    .animate(delay: 300.ms)
+                    .fadeIn(duration: 400.ms)
+                    .slideY(begin: 0.1, end: 0),
 
                 const SizedBox(height: AppTheme.sp16),
 
@@ -202,7 +201,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     }
                     return null;
                   },
-                ).animate(delay: 350.ms).fadeIn(duration: 400.ms).slideY(begin: 0.1, end: 0),
+                )
+                    .animate(delay: 350.ms)
+                    .fadeIn(duration: 400.ms)
+                    .slideY(begin: 0.1, end: 0),
 
                 const SizedBox(height: AppTheme.sp16),
 
@@ -234,7 +236,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     }
                     return null;
                   },
-                ).animate(delay: 400.ms).fadeIn(duration: 400.ms).slideY(begin: 0.1, end: 0),
+                )
+                    .animate(delay: 400.ms)
+                    .fadeIn(duration: 400.ms)
+                    .slideY(begin: 0.1, end: 0),
 
                 const SizedBox(height: AppTheme.sp16),
 
@@ -255,7 +260,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             : Icons.visibility_outlined,
                       ),
                       onPressed: () => setState(
-                        () => _confirmPasswordVisible = !_confirmPasswordVisible,
+                        () =>
+                            _confirmPasswordVisible = !_confirmPasswordVisible,
                       ),
                     ),
                   ),
@@ -268,7 +274,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     }
                     return null;
                   },
-                ).animate(delay: 450.ms).fadeIn(duration: 400.ms).slideY(begin: 0.1, end: 0),
+                )
+                    .animate(delay: 450.ms)
+                    .fadeIn(duration: 400.ms)
+                    .slideY(begin: 0.1, end: 0),
 
                 const SizedBox(height: AppTheme.sp24),
 
@@ -281,12 +290,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           width: 20,
                           child: CircularProgressIndicator(
                             strokeWidth: 2,
-                            valueColor:
-                                AlwaysStoppedAnimation(Colors.white),
+                            valueColor: AlwaysStoppedAnimation(Colors.white),
                           ),
                         )
                       : const Text('Register'),
-                ).animate(delay: 500.ms).fadeIn(duration: 400.ms).slideY(begin: 0.2, end: 0),
+                )
+                    .animate(delay: 500.ms)
+                    .fadeIn(duration: 400.ms)
+                    .slideY(begin: 0.2, end: 0),
 
                 const SizedBox(height: AppTheme.sp16),
 
@@ -308,8 +319,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       ),
                       child: Text(
                         'Login',
-                        style: AppTextStyles.bodySmall(
-                            color: AppColors.primary),
+                        style:
+                            AppTextStyles.bodySmall(color: AppColors.primary),
                       ),
                     ),
                   ],

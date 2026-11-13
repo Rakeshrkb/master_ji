@@ -16,6 +16,7 @@ import 'package:master_ji/theme/app_text.dart';
 import 'package:master_ji/theme/app_theme.dart';
 import 'package:master_ji/widgets/image_source_sheet.dart';
 import 'package:master_ji/widgets/primary_button.dart';
+import 'quick_scan_back_scope.dart';
 
 /// Screen for scanning or manually entering the answer key for Quick Scan.
 class QuickScanKeyScreen extends StatefulWidget {
@@ -222,6 +223,13 @@ class _QuickScanKeyScreenState extends State<QuickScanKeyScreen> {
 
   @override
   Widget build(BuildContext context) {
+    return QuickScanBackScope(
+      fallbackRoute: AppRoutes.quickScanSetup,
+      child: _buildScreen(context),
+    );
+  }
+
+  Widget _buildScreen(BuildContext context) {
     final l10n = AppLocalizations.of(context);
 
     if (_loading) {

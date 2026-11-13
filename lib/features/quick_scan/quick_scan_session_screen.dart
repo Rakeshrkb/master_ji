@@ -28,6 +28,7 @@ import 'package:master_ji/widgets/app_card.dart';
 import 'package:master_ji/widgets/image_source_sheet.dart';
 import 'package:master_ji/widgets/primary_button.dart';
 import 'package:master_ji/widgets/stat_pill.dart';
+import 'quick_scan_back_scope.dart';
 
 /// Screen for scanning student OMR sheets during a Quick Scan session.
 class QuickScanSessionScreen extends StatefulWidget {
@@ -372,6 +373,13 @@ class _QuickScanSessionScreenState extends State<QuickScanSessionScreen> {
 
   @override
   Widget build(BuildContext context) {
+    return QuickScanBackScope(
+      fallbackRoute: AppRoutes.quickScanKey,
+      child: _buildScreen(context),
+    );
+  }
+
+  Widget _buildScreen(BuildContext context) {
     final l10n = AppLocalizations.of(context);
     final account = context.watch<AccountState>();
 

@@ -12,6 +12,7 @@ import 'package:master_ji/theme/app_text.dart';
 import 'package:master_ji/theme/app_theme.dart';
 import 'package:master_ji/widgets/app_card.dart';
 import 'package:master_ji/widgets/primary_button.dart';
+import 'quick_scan_back_scope.dart';
 
 /// Screen for configuring Quick Scan parameters (question count, marks, negative marking).
 class QuickScanSetupScreen extends StatefulWidget {
@@ -190,6 +191,13 @@ class _QuickScanSetupScreenState extends State<QuickScanSetupScreen> {
 
   @override
   Widget build(BuildContext context) {
+    return QuickScanBackScope(
+      fallbackRoute: AppRoutes.home,
+      child: _buildScreen(context),
+    );
+  }
+
+  Widget _buildScreen(BuildContext context) {
     final l10n = AppLocalizations.of(context);
 
     if (_loading) {
